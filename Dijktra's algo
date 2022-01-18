@@ -1,0 +1,27 @@
+void dijkstra(int root)
+{
+    priority_queue<pii, vector<pii>, greater<pii>> p;
+    p.push({0, root});
+    dis[root] = 0;
+    while (!p.empty())
+    {
+        auto c = p.top();
+        int cn = c.second;
+        int cd = c.first;
+        p.pop();
+ 
+        if (cd != dis[cn])
+            continue;
+        
+        for (auto i : adj[cn])
+        {
+            if (cd + i.second < dis[i.first])
+            {
+                dis[i.first] = cd + i.second;
+                p.push({dis[i.first], i.first});
+                
+                par[i.first] = cn;
+            }
+        }
+    }
+}
